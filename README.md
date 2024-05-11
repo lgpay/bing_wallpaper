@@ -5,10 +5,17 @@
 ## bing.com
 
 ![bing.com](./bing_wallpaper.jpg)
-[点击查看源文件](https://github.com/lgpay/bing_wallpaper/blob/main/bing_wallpaper.jpg)
 
+链接：
+```shell
+https://fastly.jsdelivr.net/gh/lgpay/bing_wallpaper/bing_wallpaper.jpg
+```
 
 ## cn.bing.com
 
 ![cn.bing.com](./bing_wallpaper_cn.jpg)
-[点击查看源文件](https://github.com/lgpay/bing_wallpaper/blob/main/bing_wallpaper_cn.jpg)
+
+链接：
+```shell
+https://fastly.jsdelivr.net/gh/lgpay/bing_wallpaper/bing_wallpaper_cn.jpg
+```
