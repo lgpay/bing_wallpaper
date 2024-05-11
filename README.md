@@ -6,5 +6,5 @@
 
 链接：
 ```shell
-https://fastly.jsdelivr.net/gh/lgpay/bing_wallpaper/bing_wallpaper_cn.jpg
+https://fastly.jsdelivr.net/gh/lgpay/bing_wallpaper/bing_wallpaper.jpg
 ```
