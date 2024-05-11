@@ -3,8 +3,8 @@ name: Daily Bing Wallpaper
 on:
   schedule:
     - cron: '0 16 * * *' 
-  workflow_dispatch:
-  
+  workflow_dispatch:  # 添加手动触发的事件
+
 jobs:
   fetch-wallpaper:
     runs-on: ubuntu-latest
