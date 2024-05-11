@@ -2,8 +2,7 @@ name: Daily Bing Wallpaper
 
 on:
   schedule:
-    - cron: '0 0 * * *' # 每天 UTC 时间 00:00
-
+    - cron: '0 16 * * *' 
 jobs:
   fetch-wallpaper:
     runs-on: ubuntu-latest
@@ -11,21 +10,16 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
       
-      - name: Download Bing wallpaper (en-US)
-        run: |
-          IMAGE_URL=$(curl -s 'https://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1&mkt=en-US' | jq -r '.images[0].url')
-          wget "https://www.bing.com$IMAGE_URL" -O bing_wallpaper.jpg
-      
-      - name: Download Bing wallpaper (zh-CN)
+      -  name: Download Bing wallpaper
         run: |
           IMAGE_URL=$(curl -s 'https://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1&mkt=zh-CN' | jq -r '.images[0].url')
-          wget "https://www.bing.com$IMAGE_URL" -O bing_wallpaper_cn.jpg
+          wget "https://www.bing.com$IMAGE_URL" -O bing_wallpaper.jpg
       
       - name: Commit changes
         run: |
           git config --local user.email "actions@github.com"
           git config --local user.name "GitHub Actions"
-          git add bing_wallpaper.jpg bing_wallpaper_cn.jpg
+          git add bing_wallpaper.jpg
           git commit -m "Bing Wallpaper Update $(date +'%Y-%m-%d')"
       
       - name: Push changes
