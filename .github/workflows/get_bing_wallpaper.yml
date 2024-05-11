@@ -3,6 +3,8 @@ name: Daily Bing Wallpaper
 on:
   schedule:
     - cron: '0 16 * * *' 
+  workflow_dispatch:
+  
 jobs:
   fetch-wallpaper:
     runs-on: ubuntu-latest
