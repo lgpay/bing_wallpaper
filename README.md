@@ -1,4 +1,4 @@
-# Daily Bing Wallpaper
+# Bing 每日壁纸
 
 每天自动更新的 Bing 壁纸
 
