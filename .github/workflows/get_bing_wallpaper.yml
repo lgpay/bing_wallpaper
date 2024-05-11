@@ -1,9 +1,9 @@
 name: Daily Bing Wallpaper
 
 on:
+  workflow_dispatch:
   schedule:
-    - cron: '0 16 * * *' 
-  workflow_dispatch:  # 添加手动触发的事件
+    - cron: '0 0 * * *' # 每天 UTC 时间 00:00
 
 jobs:
   fetch-wallpaper:
@@ -12,7 +12,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
       
-      -  name: Download Bing wallpaper
+      - name: Download Bing wallpaper
         run: |
           IMAGE_URL=$(curl -s 'https://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1&mkt=zh-CN' | jq -r '.images[0].url')
           wget "https://www.bing.com$IMAGE_URL" -O bing_wallpaper.jpg
@@ -22,7 +22,7 @@ jobs:
           git config --local user.email "actions@github.com"
           git config --local user.name "GitHub Actions"
           git add bing_wallpaper.jpg
-          git commit -m "Bing Wallpaper Update $(date +'%Y-%m-%d')"
+          git commit -m "Daily Bing Wallpaper Update $(date +'%Y-%m-%d')"
       
       - name: Push changes
         uses: ad-m/github-push-action@master
