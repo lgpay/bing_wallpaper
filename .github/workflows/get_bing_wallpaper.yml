@@ -2,7 +2,8 @@ name: Daily Bing Wallpaper
 
 on:
   schedule:
-    - cron: '0 16 * * *' # 每天 UTC 时间 00:00
+    - cron: '0 16 * * *' 
+workflow_dispatch:
 
 jobs:
   fetch-wallpaper:
