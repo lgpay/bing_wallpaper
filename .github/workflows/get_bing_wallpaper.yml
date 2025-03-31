@@ -12,8 +12,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
       
-      - name: Install ImageMagick
-        run: sudo apt-get install imagemagick
+      - name: Update and install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --fix-missing imagemagick
 
       - name: Download Bing wallpaper
         run: |
