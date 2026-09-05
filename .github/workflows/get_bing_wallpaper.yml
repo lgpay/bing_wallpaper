@@ -1,0 +1,44 @@
+name: Daily Bing Wallpaper
+
+on:
+  schedule:
+    - cron: '0 16 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  fetch-wallpaper:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Update and install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --fix-missing imagemagick
+
+      - name: Download Bing wallpaper
+        run: |
+          set -euo pipefail
+          IMAGE_URL=$(curl -fsSL 'https://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1&mkt=zh-CN' | jq -er '.images[0].url')
+          wget "https://www.bing.com$IMAGE_URL" -O bing_wallpaper.jpg
+
+      - name: Resize and crop image to 1068x455 (bing_wx.jpg)
+        run: |
+          convert bing_wallpaper.jpg -resize 1068x455^ -gravity center -extent 1068x455 bing_wx.jpg
+
+      - name: Commit changes
+        run: |
+          set -euo pipefail
+          git config --local user.email "actions@github.com"
+          git config --local user.name "GitHub Actions"
+          git add bing_wallpaper.jpg bing_wx.jpg
+          git diff --cached --quiet || git commit -m "Daily Bing Wallpaper Update $(date +'%Y-%m-%d')"
+      
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
