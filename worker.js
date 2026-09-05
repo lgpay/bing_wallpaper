@@ -1,5 +1,5 @@
 const BING_API =
-  "https://www.bing.com/HPImageArchive.aspx?idx=0&n=1&mkt=zh-CN&format=json";
+  "https://www.bing.com/HPImageArchive.aspx?idx=0&n=1&mkt=zh-CN&format=js";
 
 export default {
   async fetch(request, env, ctx) {
