@@ -39,13 +39,15 @@ async function getWallpaper() {
 
 async function getImageResponse(request, ctx, imageUrl) {
   const cache = caches.default;
-  const cacheKey = new Request(new URL("/image", request.url).toString());
+  const cacheUrl = new URL("/image", request.url);
+  cacheUrl.searchParams.set("source", imageUrl);
+  const cacheKey = new Request(cacheUrl.toString());
   const cached = await cache.match(cacheKey);
   if (cached) return request.method === "HEAD" ? new Response(null, { status: cached.status, headers: cached.headers }) : cached;
   const imageResponse = await fetch(imageUrl);
   if (!imageResponse.ok) throw new Error("Bing image request failed");
   const headers = new Headers(imageResponse.headers);
-  headers.set("cache-control", "public, max-age=86400");
+  headers.set("cache-control", "public, max-age=300, s-maxage=86400");
   headers.set("access-control-allow-origin", "*");
   const result = new Response(request.method === "HEAD" ? null : imageResponse.body, { status: imageResponse.status, headers });
   if (request.method === "GET") ctx.waitUntil(cache.put(cacheKey, result.clone()));
